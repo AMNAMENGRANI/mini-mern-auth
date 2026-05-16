@@ -1,60 +1,45 @@
 const { useState } = React;
 
-function App(){
+function App() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // 🔥 CHANGE THIS LINE (IMPORTANT)
+  const BASE_URL = "https://your-backend.vercel.app";
+
   const signup = () => {
-
-    fetch("http://localhost:5000/signup", {
-
+    fetch(`${BASE_URL}/signup`, {
       method: "POST",
-
       headers: {
         "Content-Type": "application/json"
       },
-
       body: JSON.stringify({
         email,
         password
       })
-
     })
-
     .then(res => res.json())
-
     .then(data => alert(data.message));
-
   };
 
   const login = () => {
-
-    fetch("http://localhost:5000/login", {
-
+    fetch(`${BASE_URL}/login`, {
       method: "POST",
-
       headers: {
         "Content-Type": "application/json"
       },
-
       body: JSON.stringify({
         email,
         password
       })
-
     })
-
     .then(res => res.json())
-
     .then(data => alert(data.message));
-
   };
 
   return React.createElement(
-
     "div",
-
     { className: "container" },
 
     React.createElement("h2", null, "Auth App"),
@@ -70,16 +55,10 @@ function App(){
       onChange: (e) => setPassword(e.target.value)
     }),
 
-    React.createElement("button", {
-      onClick: signup
-    }, "Signup"),
+    React.createElement("button", { onClick: signup }, "Signup"),
 
-    React.createElement("button", {
-      onClick: login
-    }, "Login")
-
+    React.createElement("button", { onClick: login }, "Login")
   );
-
 }
 
 ReactDOM.createRoot(document.getElementById("root"))
